@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PacMan1
+{
+    public class Player: GameObject, IGameObject
+    {
+        public Player(Vector position) : base(3) 
+        { 
+            Position = position;
+            Symbol = '@';
+        }
+
+        public Vector Position {  get; private set; }
+
+        public char Symbol { get; private set; }
+
+        public override void Print()
+        {
+            Console.SetCursorPosition(Position.X, Position.Y);
+            Console.Write(Symbol);
+        }
+
+        public override void Update()
+        {
+
+        }
+    }
+}
