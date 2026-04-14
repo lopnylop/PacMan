@@ -1,0 +1,63 @@
+using PacMan1;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PacMan1
+{
+    public class Tyle : IGameObject
+    {
+        private Tyle _up;
+        private Tyle _down;
+        private Tyle _left;
+        private Tyle _right;
+
+        public Tyle(Vector position, int kye, char symbol = ' ')
+        {
+            Position = position;
+            Symbol = symbol;
+            Kye = kye;
+
+            _up = null;
+            _down = null;
+            _left = null;
+            _right = null;
+
+            if(kye == 0)
+                IsWall = false;
+            else
+                IsWall = true;
+        }
+
+        public Vector Position { get; private set; }
+
+        public int kye { get; private set; }
+
+        public bool IsWall { get; private set; }
+
+        public char Symbol { get; private set; }
+
+        public Vector GetRouteFinishTyle(Vector vector) => Position - vector;
+
+        public static bool operator ==(Tyle tyle, Vector vector) => tyle.Position.X == vector.X && tyle.Position.Y == vector.Y;
+
+        public static bool operator !=(Tyle tyle, Vector vector) => tyle.Position.X != vector.X && tyle.Position.Y != vector.Y;
+
+        public void SetLink(Tyle tyle)
+        {
+            if(tyle.Position.X == Position.X || tyle.Position.Y == Position.Y)
+            {
+                if(tyle.Position.X > Position.X)
+                    _left = tyle;
+                else if(tyle.Position.Y > Position.Y)
+                    _down = tyle;
+                else if (tyle.Position.X < Position.X)
+                    _right = tyle;
+                else
+                    _up = tyle;
+            }
+        }
+    }
+}
