@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PacMan1
+{
+    public abstract class Enemy: GameObject, IGameObject
+    {
+        private Player _player;
+
+        public Enemy(Vector position, Player player) : base()
+        {
+            Position = position;
+            Symbol = 'S';
+            _player = player;
+        }
+
+        public Vector Position { get; private set; }
+
+        public char Symbol { get; private set; }
+
+        public override void Print()
+        {
+            PrintEnemy();
+        }
+
+        protected virtual void PrintEnemy()
+        {
+            Console.SetCursorPosition(Position.X, Position.Y);
+            Console.Write(Symbol);
+        }
+
+        public override void Update(Scene scene)
+        {
+            GameIntelligence(scene, _player);
+        }
+
+        protected abstract GameIntelligence(Scene scene, Plyer player);
+    }
+}
